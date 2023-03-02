@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Switch, Route, Redirect, NavLink } from "react-router-dom";
 
 import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
@@ -46,7 +46,7 @@ function App() {
   };
 
   const addAppointment = (appointmentTitle, appointmentContact, appointmentDate, AppointmentTime) => {
-    setAppointments((prevAppointment) => {
+    setAppointments((prevAppointments) => {
       const appointment = {
         title: appointmentTitle,
         contact: appointmentContact,
