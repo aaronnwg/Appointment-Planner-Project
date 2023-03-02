@@ -25,6 +25,14 @@ export const ContactsPage = (props) => {
 
     }
   };
+  useEffect(()=>{
+    const result = props.contacts.find((element) => {
+        return element.name === name;
+    });
+    if(result !== undefined) { 
+      setDuplicateName(true);
+    }
+  },[name])
 
   /*
   Using hooks, check for contact name in the 
@@ -35,10 +43,15 @@ export const ContactsPage = (props) => {
     <div>
       <section>
         <h2>Add Contact</h2> 
+        <ContactForm handleSubmit={handleSubmit} 
+         name={name} setName={setName}
+         email={email} setEmail={setEmail} 
+         phone={phone} setPhone={setPhone} />
       </section>
       <hr />
       <section>
         <h2>Contacts</h2>
+        <TileList list={props.contacts} />
       </section>
     </div>
   );
