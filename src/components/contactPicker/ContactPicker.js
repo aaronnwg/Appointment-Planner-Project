@@ -8,7 +8,7 @@ export const ContactPicker = (props) => {
   };
   return (
     <select onChange={handleChange}>
-      <option value="">PleaseSelect</option>
+      <option value="">Please Select</option>
       {
         props.contacts.map( (element, index) => {
           return <option value={element.name} key={index}>{element.name}</option>

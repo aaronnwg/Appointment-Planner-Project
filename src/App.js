@@ -1,91 +1,86 @@
-import React, {useState} from "react";
-import { Switch, Route, Redirect, NavLink } from "react-router-dom";
+import React from "react";
+import { Switch, Route, Redirect, NavLink, BrowserRouter as Router } from "react-router-dom";
 
 import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
 import { ContactsPage } from "./containers/contactsPage/ContactsPage";
 
-function App() {
-  /*
-  Define state variables for 
-  contacts and appointments 
-  */
-  const [contacts, setContacts] = useState([{
-    name: '',
-    phone: '',
-    email: ''
-  }]);
-  const [appointments, setAppointments] = useState([{
-    title: '',
-    contact: {
-      name: '', 
-      phone: '',
-      email: ''
-    },
-    date: '',
-    time: ''
-  }]);
-  console.log(contacts);
+const ROUTES = {
+  CONTACTS: "/contacts",
+  APPOINTMENTS: "/appointments",
+};
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      contacts: [],
+      appointments: []
+    }
+    this.addContact = this.addContact.bind(this);
+    this.addAppointment = this.addAppointment.bind(this);
+  }
 
-  /*
-  Implement functions to add data to
-  contacts and appointments
-  */
-  const addContact = (contactName, contactPhone, contactEmail) => {
-    setContacts((prevContacts) => {
-      const contact = {
-        name: contactName,
-        phone: contactPhone,
-        email: contactEmail
-      };
-      return [...prevContacts, contact];
-    });
-  };
+  addContact(name, phone, email) {
+    this.setState((prevState) => ({
+      ...prevState,
+      contacts: [...prevState.contacts,
+        {
+          name: name,
+          phone: phone,
+          email: email
+        }
+      ]
+    }))
+    
+  }
 
-  const addAppointment = (appointmentTitle, appointmentContact, appointmentDate, AppointmentTime) => {
-    setAppointments((prevAppointments) => {
-      const appointment = {
-        title: appointmentTitle,
-        contact: appointmentContact,
-        date: appointmentDate,
-        time: AppointmentTime
-      };
-      return [...prevAppointments, appointment];
-    });
-  };
+  addAppointment(title, contact, date, time) {
+    this.setState((prevState) => ({
+      ...prevState,
+      appointments: [...prevState.appointments,
+      {
+        title: title,
+        contact: contact,
+        date: date,
+        time: time
+      }]
+    }))
+  }
 
-  const ROUTES = {
-    CONTACTS: "/contacts",
-    APPOINTMENTS: "/appointments",
-  };
+  
 
-  return (
-    <>
-      <nav>
-        <NavLink to={ROUTES.CONTACTS} activeClassName="active">
-          Contacts
-        </NavLink>
-        <NavLink to={ROUTES.APPOINTMENTS} activeClassName="active">
-          Appointments
-        </NavLink>
-      </nav>
-      <main>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to={ROUTES.CONTACTS} />
-          </Route>
-          <Route path={ROUTES.CONTACTS}>
-             {/* Add props to ContactsPage */}
-            <ContactsPage contacts={contacts} addContact={addContact} />
-          </Route>
-          <Route path={ROUTES.APPOINTMENTS}>
-            {/* Add props to AppointmentsPage */}
-            <AppointmentsPage appointments={appointments} contacts={contacts} addAppointment={addAppointment} />
-          </Route>
-        </Switch>
-      </main>
-    </>
-  );
+  render() {
+
+    return (
+      <Router>
+        <nav>
+          <NavLink to={ROUTES.CONTACTS} activeClassName="active">
+            Contacts
+          </NavLink>
+          <NavLink to={ROUTES.APPOINTMENTS} activeClassName="active">
+            Appointments
+          </NavLink>
+        </nav>
+        <main>
+          <Switch>
+            <Route exact path="/">
+              <Redirect to={ROUTES.CONTACTS} />
+            </Route>
+            <Route path={ROUTES.CONTACTS}>
+              <ContactsPage contacts={this.state.contacts} addContact={this.addContact} />
+            </Route>
+            <Route path={ROUTES.APPOINTMENTS}>
+              <AppointmentsPage
+                appointments={this.state.appointments}
+                addAppointment={this.addAppointment}
+                contacts={this.state.contacts}
+              />
+            </Route>
+          </Switch>
+        </main>
+      </Router>
+    );
+    }
 }
 
 export default App;
