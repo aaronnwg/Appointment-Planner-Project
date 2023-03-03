@@ -24,11 +24,8 @@ function App() {
     date: '',
     time: ''
   }]);
+  console.log(contacts);
 
-  const ROUTES = {
-    CONTACTS: "/contacts",
-    APPOINTMENTS: "/appointments",
-  };
 
   /*
   Implement functions to add data to
@@ -57,6 +54,11 @@ function App() {
     });
   };
 
+  const ROUTES = {
+    CONTACTS: "/contacts",
+    APPOINTMENTS: "/appointments",
+  };
+
   return (
     <>
       <nav>
@@ -78,7 +80,7 @@ function App() {
           </Route>
           <Route path={ROUTES.APPOINTMENTS}>
             {/* Add props to AppointmentsPage */}
-            <AppointmentsPage appointments={appointments} addAppointment={addAppointment} />
+            <AppointmentsPage appointments={appointments} contacts={contacts} addAppointment={addAppointment} />
           </Route>
         </Switch>
       </main>
