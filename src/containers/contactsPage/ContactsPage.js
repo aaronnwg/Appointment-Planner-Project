@@ -18,7 +18,7 @@ export const ContactsPage = (props) => {
     if the contact name is not a duplicate
     */
     if(duplicateName === false){
-      props.addContact(name,phone,email);
+      props.addContact(name, phone, email);
       setName('');
       setPhone('');
       setEmail('');
