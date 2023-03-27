@@ -1,8 +1,0 @@
-[build]
-    command = "yarn build"
-    publish = "Appointment-Planner-Project/build"
-    base = "Appointment-Planner-Project"
-[[redirects]]
-    from ="/*"
-    to ="/public/index.html"
-    status = 200
