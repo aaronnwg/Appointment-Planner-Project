@@ -32,7 +32,7 @@ export const ContactsPage = (props) => {
     if(result !== undefined) { 
       setDuplicateName(true);
     }
-  },[name])
+  },[name, props])
 
   /*
   Using hooks, check for contact name in the 

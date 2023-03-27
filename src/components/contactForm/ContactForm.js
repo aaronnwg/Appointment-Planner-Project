@@ -1,16 +1,16 @@
 import React from "react";
 
 export const ContactForm = (props) => {
-  const handleNameChange = ({ target }) => {
-    const { name, value } = target;
+  const handleNameChange = (e) => {
+    const value = e.target.value;
     props.setName(value);
   };
-  const handlePhoneChange = ({ target }) => {
-    const { name, value } = target;
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
     props.setPhone(value);
   };
-  const handleEmailChange = ({ target }) => {
-    const { name, value } = target;
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
     props.setEmail(value);
   };
   return (
